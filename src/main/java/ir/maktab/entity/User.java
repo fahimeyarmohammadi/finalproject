@@ -1,4 +1,17 @@
 package ir.maktab.entity;
 
-public class User {
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+import javax.persistence.Entity;
+
+@Entity
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
+public class User extends Person{
+
 }
