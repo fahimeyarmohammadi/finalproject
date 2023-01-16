@@ -12,5 +12,5 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class BuildingFacilities extends Service {
+public class Vehicles extends Service{
 }
