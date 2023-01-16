@@ -13,4 +13,5 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class Expert extends Person{
+
 }
