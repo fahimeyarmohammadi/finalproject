@@ -4,6 +4,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Getter
 @Setter
@@ -12,6 +14,11 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
+
+@NamedQueries(
+        @NamedQuery(name = "getAllSubServices",query = "FROM SubService")
+)
+
 public class SubService extends BaseService{
     String subName;
     Double basePrice;
