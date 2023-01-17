@@ -5,6 +5,7 @@
         <class>ir.maktab.entity.Customer</class>
         <class>ir.maktab.entity.Expert</class>
 
+
         <properties>
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>

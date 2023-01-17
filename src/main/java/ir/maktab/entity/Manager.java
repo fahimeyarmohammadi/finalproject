@@ -18,10 +18,10 @@ public class Manager {
     Long id;
 
     @Column(nullable = false)
-    String username="manager";
+    String username;
 
 
     @Column(nullable = false)
-    String password="1234";
+    String password;
 
 }
