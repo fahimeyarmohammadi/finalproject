@@ -1,6 +1,5 @@
 package ir.maktab.entity;
 
-import ir.maktab.enums.EXPERTCONDITION;
 import ir.maktab.enums.ORDERCONDITION;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -16,7 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NamedQueries(
-        @NamedQuery(name = "getAllOrders",query = "FROM Order")
+        @NamedQuery(name = "getAllOrders", query = "FROM Order")
 )
 
 public class Order {
@@ -34,9 +33,9 @@ public class Order {
     @Enumerated(value = EnumType.STRING)
     ORDERCONDITION ordercondition;
     @OneToOne
-     SubService subService;
+    SubService subService;
 
-    @Temporal(value=TemporalType.TIMESTAMP)
+    @Temporal(value = TemporalType.TIMESTAMP)
     Date doneDate;
 
     @Embedded

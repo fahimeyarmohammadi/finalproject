@@ -29,6 +29,8 @@ public class Expert extends Person{
     @OneToMany
     List<Review>reviewList=new ArrayList<>();
 
+    int score;
+
     //image
 
 }
