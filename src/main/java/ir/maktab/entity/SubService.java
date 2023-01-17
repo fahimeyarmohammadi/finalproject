@@ -14,4 +14,6 @@ import javax.persistence.Entity;
 @Entity
 public class SubService extends BaseService{
     String subName;
+    Double basePrice;
+    String description;
 }

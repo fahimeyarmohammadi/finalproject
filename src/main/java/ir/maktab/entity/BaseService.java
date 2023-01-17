@@ -13,13 +13,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Inheritance(strategy = InheritanceType.JOINED)
+@NamedQueries(
+        @NamedQuery(name = "getAllBaseServices",query = "FROM BaseService")
+)
 public class BaseService {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     String name;
-
-    Double basePrice;
-    String description;
 }

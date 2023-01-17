@@ -4,10 +4,7 @@ import ir.maktab.enums.EXPERTCONDITION;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,12 +15,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+@NamedQueries(
+        @NamedQuery(name = "getAllExperts",query = "FROM Expert"))
+
 public class Expert extends Person{
 
     @Enumerated(value = EnumType.STRING)
      EXPERTCONDITION expertcondition;
 
-    @OneToMany
+    @ManyToMany
     List<SubService> subServiceList=new ArrayList<>();
 
     @OneToMany
