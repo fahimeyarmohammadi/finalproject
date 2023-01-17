@@ -11,7 +11,7 @@ public class ExpertService {
         expertRepository.save(expert);
     }
 
-    public void updateCustomer(Expert expert) {
+    public void changPassword(Expert expert) {
         expertRepository.update(expert);
     }
 }

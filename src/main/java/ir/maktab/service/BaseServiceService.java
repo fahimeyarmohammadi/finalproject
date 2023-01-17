@@ -18,6 +18,7 @@ public class BaseServiceService {
 
     public void addBaseService(BaseService baseService) {
 
+
         baseServiceRepository.save(baseService);
     }
 

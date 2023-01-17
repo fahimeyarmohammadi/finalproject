@@ -7,13 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
+
+@Entity
 @Getter
 @Setter
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Entity
+@ToString
 
 @NamedQueries(
         @NamedQuery(name = "getAllSubServices",query = "FROM SubService")

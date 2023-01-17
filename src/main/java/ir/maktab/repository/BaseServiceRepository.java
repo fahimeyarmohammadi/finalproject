@@ -1,12 +1,14 @@
 package ir.maktab.repository;
 
 import ir.maktab.entity.BaseService;
-import ir.maktab.entity.Expert;
+import ir.maktab.exception.NotFoundException;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
+import java.util.Optional;
 
-public class BaseServiceRepository implements IRepository<BaseService>{
+public class BaseServiceRepository implements IRepository<BaseService> {
 
     private static final BaseServiceRepository baseServiceRepository = new BaseServiceRepository();
 
@@ -16,6 +18,7 @@ public class BaseServiceRepository implements IRepository<BaseService>{
     public static BaseServiceRepository getInstance() {
         return baseServiceRepository;
     }
+
     @Override
     public void save(BaseService baseService) {
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
@@ -39,7 +42,7 @@ public class BaseServiceRepository implements IRepository<BaseService>{
     public void delete(BaseService baseService) {
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
-        BaseService deleteBaseService= em.find(BaseService.class, baseService.getId());
+        BaseService deleteBaseService = em.find(BaseService.class, baseService.getId());
         em.remove(deleteBaseService);
         em.getTransaction().commit();
         em.close();
@@ -54,4 +57,17 @@ public class BaseServiceRepository implements IRepository<BaseService>{
         em.close();
         return baseServiceList;
     }
+
+    public Optional<BaseService> getBaseServiceByName(String name) {
+        Optional<BaseService> baseService;
+            EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
+            em.getTransaction().begin();
+            Query query = em.createQuery("from BaseService b where b.name=:name");
+            query.setParameter("name", name);
+            baseService = (Optional<BaseService>) query.getSingleResult();
+            em.getTransaction().commit();
+            em.close();
+            return baseService;
+    }
+
 }

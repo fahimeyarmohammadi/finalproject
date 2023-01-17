@@ -22,4 +22,12 @@ public class SubServiceService {
 
         subServiceRepository.save(subService);
     }
+
+    public void getAllSubService(){
+        subServiceRepository.getAll();
+    }
+
+    public void update(SubService subService){
+        subServiceRepository.update(subService);
+    }
 }

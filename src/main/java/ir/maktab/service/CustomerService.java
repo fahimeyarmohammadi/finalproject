@@ -11,7 +11,7 @@ public class CustomerService {
         customerRepository.save(customer);
     }
 
-    public void updateCustomer(Customer customer){
+    public void changePassword(Customer customer){
         customerRepository.update(customer);
     }
 
