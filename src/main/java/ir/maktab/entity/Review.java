@@ -3,23 +3,24 @@ package ir.maktab.entity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
 
+@Entity
 @Getter
 @Setter
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@MappedSuperclass
-public class Service {
+public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    Double basePrice;
+    int score;
     String comment;
+
 }

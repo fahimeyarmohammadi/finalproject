@@ -5,13 +5,13 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.Entity;
 
-@Entity
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Setter
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-
-public class BuildingDecoration extends Service{
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Entity
+public class SubService extends BaseService{
+    String subName;
 }

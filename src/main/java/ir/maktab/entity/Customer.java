@@ -4,6 +4,9 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -12,6 +15,7 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class User extends Person{
-
+public class Customer extends Person{
+    @OneToMany
+    List<Order> orderList=new ArrayList<>();
 }

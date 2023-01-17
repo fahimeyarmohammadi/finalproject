@@ -21,11 +21,21 @@ public class Order {
     Long id;
 
     Double proposedPrice;
-    String comment;
-    @Temporal(value = TemporalType.DATE)
-    Date proposedDate;
+
+    String description;
+
+    @Temporal(value = TemporalType.TIMESTAMP)
+    Date preferDate;
 
     @Enumerated(value = EnumType.STRING)
     ORDERCONDITION ordercondition;
+    @OneToOne
+     SubService subService;
+
+    @Temporal(value=TemporalType.TIMESTAMP)
+    Date doneDate;
+
+    @Embedded
+    Address address;
 
 }

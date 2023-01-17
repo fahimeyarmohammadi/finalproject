@@ -1,9 +1,9 @@
 <persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/persistence" version="2.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
     <persistence-unit transaction-type="RESOURCE_LOCAL" name="final">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>ir.maktab.entity.Loan</class>
-        <class>ir.maktab.entity.Student</class>
-        <class>ir.maktab.entity.EducationLoan</class>
+
+        <class>ir.maktab.entity.Customer</class>
+        <class>ir.maktab.entity.Expert</class>
         <class>ir.maktab.entity.TuitionLoan</class>
         <class>ir.maktab.entity.HousingLoan</class>
         <class>ir.maktab.entity.AllocatedLoan</class>

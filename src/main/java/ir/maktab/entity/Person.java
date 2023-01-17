@@ -2,6 +2,7 @@ package ir.maktab.entity;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -31,7 +32,7 @@ public class Person {
 
     @Column(nullable = false)
     String password;
-
-    @Temporal(value = TemporalType.DATE)
+    @CreationTimestamp
+    @Temporal(value = TemporalType.TIMESTAMP)
     Date date;
 }

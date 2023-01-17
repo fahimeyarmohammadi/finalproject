@@ -2,6 +2,7 @@ package ir.maktab.entity;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -18,14 +19,18 @@ public class Offers {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Temporal(value=TemporalType.DATE)
+    @CreationTimestamp
+    @Temporal(value = TemporalType.TIMESTAMP)
     Date offerDate;
 
     Double offerPrice;
 
-    @Temporal(value=TemporalType.DATE)
+    @Temporal(value = TemporalType.TIMESTAMP)
     Date startWork;
 
-    @ManyToOne
+    @OneToOne
     Order order;
+
+    @OneToOne
+    Expert expert;
 }

@@ -4,8 +4,6 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -20,13 +18,10 @@ public class Manager {
     Long id;
 
     @Column(nullable = false)
-    String name;
+    String username="manager";
+
 
     @Column(nullable = false)
-    String familyName;
+    String password="1234";
 
-    @Column(nullable = false)
-    String password;
-    @OneToMany
-    List<Service> serviceList=new ArrayList<>();
 }

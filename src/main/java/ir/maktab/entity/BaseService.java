@@ -3,10 +3,7 @@ package ir.maktab.entity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -15,15 +12,14 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Opinion {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class BaseService {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    int score;
-    String comment;
+    String name;
 
-     Expert expert;
-
-     User user;
+    Double basePrice;
+    String description;
 }
