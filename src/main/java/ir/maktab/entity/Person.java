@@ -32,6 +32,7 @@ public class Person {
 
     @Column(nullable = false)
     String password;
+
     @CreationTimestamp
     @Temporal(value = TemporalType.TIMESTAMP)
     Date date;
