@@ -19,7 +19,7 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    Long credit;
+    Long credit= Long.valueOf(0);
 
     @Column(nullable = false)
     String name;
