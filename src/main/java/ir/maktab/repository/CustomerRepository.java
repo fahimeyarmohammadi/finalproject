@@ -3,9 +3,11 @@ package ir.maktab.repository;
 import ir.maktab.entity.Customer;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
+import java.util.Optional;
 
-public class CustomerRepository implements IRepository<Customer>{
+public class CustomerRepository implements IRepository<Customer> {
 
     private static final CustomerRepository customerRepository = new CustomerRepository();
 
@@ -17,11 +19,11 @@ public class CustomerRepository implements IRepository<Customer>{
     }
 
     public void save(Customer customer) {
-            EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
-            em.getTransaction().begin();
-            em.persist(customer);
-            em.getTransaction().commit();
-            em.close();
+        EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(customer);
+        em.getTransaction().commit();
+        em.close();
     }
 
     public void update(Customer customer) {
@@ -49,4 +51,30 @@ public class CustomerRepository implements IRepository<Customer>{
         em.close();
         return customerList;
     }
+
+    public Optional<Customer> getByUserNameAndPassword(String username, String password) {
+        Optional<Customer> customer;
+        EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
+        em.getTransaction().begin();
+        Query query = em.createQuery("from Customer c where c.username =:username and c.password =:password");
+        query.setParameter("username", username);
+        query.setParameter("password", password);
+        customer = (Optional<Customer>) query.getSingleResult();
+        em.getTransaction().commit();
+        em.close();
+        return customer;
+    }
+
+    public Optional<Customer> getCustomerByEmail(String email){
+        Optional<Customer> customer;
+        EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
+        em.getTransaction().begin();
+        Query query = em.createQuery("from Customer c where c.email=:email");
+        query.setParameter("email",email);
+        customer = (Optional<Customer>) query.getSingleResult();
+        em.getTransaction().commit();
+        em.close();
+        return customer;
+    }
 }
+
