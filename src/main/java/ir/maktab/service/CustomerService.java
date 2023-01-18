@@ -1,9 +1,7 @@
 package ir.maktab.service;
 
-import ir.maktab.entity.BaseService;
-import ir.maktab.entity.Customer;
-import ir.maktab.entity.Expert;
-import ir.maktab.entity.SubService;
+import ir.maktab.entity.*;
+import ir.maktab.exception.NOVALIDATE;
 import ir.maktab.exception.NotFoundException;
 import ir.maktab.repository.CustomerRepository;
 
@@ -52,6 +50,12 @@ public class CustomerService {
         Optional<Customer> optionalCustomer = customerRepository.getCustomerByEmail(email);
         if (optionalCustomer.isPresent()) return optionalCustomer.get();
         else throw new NotFoundException("customer is null");
+    }
+
+    public void customerGetOrder(Order order) throws NOVALIDATE {
+
+         orderService.addOrder(order);
+
     }
 
 }

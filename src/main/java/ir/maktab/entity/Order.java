@@ -32,6 +32,7 @@ public class Order {
 
     @Enumerated(value = EnumType.STRING)
     ORDERCONDITION ordercondition;
+
     @OneToOne
     SubService subService;
 
