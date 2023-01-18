@@ -1,14 +1,16 @@
 package ir.maktab.service;
 
+import ir.maktab.entity.Expert;
 import ir.maktab.entity.SubService;
 import ir.maktab.exception.NotFoundException;
 import ir.maktab.exception.OBJECTISEXIST;
 import ir.maktab.repository.SubServiceRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public class SubServiceService {
-    private final BaseServiceService baseServiceService = BaseServiceService.getInstance();
+
     private static final SubServiceService subServiceService = new SubServiceService();
 
     private SubServiceService() {
@@ -17,6 +19,8 @@ public class SubServiceService {
     public static SubServiceService getInstance() {
         return subServiceService;
     }
+
+    private final BaseServiceService baseServiceService = BaseServiceService.getInstance();
 
     private final SubServiceRepository subServiceRepository = SubServiceRepository.getInstance();
 
@@ -41,8 +45,23 @@ public class SubServiceService {
             throw new NotFoundException("this baseService is not exist");
     }
 
+    public SubService getSubServiceByName(String subName) {
 
-    public void update(SubService subService) {
+        Optional<SubService> optionalSubService = subServiceRepository.getSubServiceByName(subName);
+        if (optionalSubService.isPresent()) return optionalSubService.get();
+        else throw new NotFoundException("SubService not sound");
+    }
+
+
+    public void changeSubServiceBasePrice(String subName, Double newPrice) {
+        SubService subService = subServiceService.getSubServiceByName(subName);
+        subService.setBasePrice(Double.valueOf(newPrice));
+        subServiceRepository.update(subService);
+    }
+
+    public void changeSubServiceDescription(String subName, String newDescription) {
+        SubService subService = subServiceService.getSubServiceByName(subName);
+        subService.setDescription(newDescription);
         subServiceRepository.update(subService);
     }
 }

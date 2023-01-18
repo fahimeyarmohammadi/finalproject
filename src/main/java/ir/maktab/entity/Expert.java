@@ -23,7 +23,7 @@ public class Expert extends Person{
     @Enumerated(value = EnumType.STRING)
      EXPERTCONDITION expertcondition;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     List<SubService> subServiceList=new ArrayList<>();
 
     @OneToMany

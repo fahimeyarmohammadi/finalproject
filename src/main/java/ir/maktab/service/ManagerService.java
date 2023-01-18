@@ -42,7 +42,8 @@ public class ManagerService {
     }
 
     public void addExpertToSubService(String expertEmail,String subServiceName){
-
-
+        Expert expert=expertService.getExpertByEmail(expertEmail);
+        SubService subService=subServiceService.getSubServiceByName(subServiceName);
+        expert.getSubServiceList().add(subService);
     }
 }

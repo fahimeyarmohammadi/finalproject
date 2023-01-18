@@ -5,6 +5,7 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.Duration;
 import java.util.Date;
 
 @Entity
@@ -33,4 +34,6 @@ public class Offers {
 
     @OneToOne
     Expert expert;
+
+    Duration duration;
 }
