@@ -1,4 +1,4 @@
-package ir.maktab.validation;
+package ir.maktab.util.validation;
 
 import ir.maktab.exception.NOVALIDATE;
 

@@ -4,6 +4,7 @@ import ir.maktab.entity.BaseService;
 import ir.maktab.entity.Customer;
 import ir.maktab.entity.Expert;
 import ir.maktab.entity.SubService;
+import ir.maktab.enums.EXPERTCONDITION;
 import ir.maktab.exception.NotFoundException;
 import ir.maktab.repository.ExpertRepository;
 import ir.maktab.repository.SubServiceRepository;
@@ -29,6 +30,9 @@ public class ExpertService {
     private final ExpertRepository expertRepository = ExpertRepository.getInstance();
 
     public void addExpert(Expert expert) {
+        expert.setCredit((double) 0);
+        expert.setScore(0);
+        expert.setExpertcondition(EXPERTCONDITION.valueOf("NEW"));
         expertRepository.save(expert);
     }
 

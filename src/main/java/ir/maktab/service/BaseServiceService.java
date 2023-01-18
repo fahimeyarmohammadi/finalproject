@@ -22,6 +22,7 @@ public class BaseServiceService {
     private final BaseServiceRepository baseServiceRepository = BaseServiceRepository.getInstance();
 
     public void addBaseService(BaseService baseService) throws OBJECTISEXIST {
+
         if (baseServiceRepository.getBaseServiceByName(baseService.getName()).isPresent())
             throw new OBJECTISEXIST("this baseService is existing");
         else

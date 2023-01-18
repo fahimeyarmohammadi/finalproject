@@ -13,7 +13,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries(
         @NamedQuery(name = "getAllBaseServices",query = "FROM BaseService")
 )

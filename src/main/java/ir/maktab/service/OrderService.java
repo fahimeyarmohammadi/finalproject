@@ -1,10 +1,12 @@
 package ir.maktab.service;
 
-import ir.maktab.entity.Order;
+import ir.maktab.entity.CustomerOrder;
+import ir.maktab.enums.ORDERCONDITION;
 import ir.maktab.exception.NOVALIDATE;
 import ir.maktab.repository.OrderRepository;
+import ir.maktab.util.DateUtil;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class OrderService {
 
@@ -20,13 +22,14 @@ public class OrderService {
 
     private final OrderRepository orderRepository = OrderRepository.getInstance();
 
-    public void addOrder(Order order) throws NOVALIDATE {
+    public void addOrder(CustomerOrder order) throws NOVALIDATE {
 
-        if (order.getProposedPrice() < order.getSubService().getBasePrice()) {
+        if ( order.getProposedPrice() < order.getSubService().getBasePrice()) {
             throw new NOVALIDATE("the proposedPrice must greater than subServer basePrice");
-        } else if (order.getPreferDate().before(new Date())) {
+        } else if (DateUtil.dateToLocalDateTime(order.getPreferDate()).isBefore(LocalDateTime.now())) {
             throw new NOVALIDATE("prefer Date must be after now");
         } else
+            order.setOrdercondition(ORDERCONDITION.valueOf("WAITINGFORTHESUGGESTINOFEXPERT"));
             orderRepository.save(order);
     }
 }

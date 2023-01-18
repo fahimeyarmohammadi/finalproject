@@ -1,7 +1,6 @@
 package ir.maktab.repository;
 
 import ir.maktab.entity.BaseService;
-import ir.maktab.exception.NotFoundException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -60,14 +59,14 @@ public class BaseServiceRepository implements IRepository<BaseService> {
 
     public Optional<BaseService> getBaseServiceByName(String name) {
         Optional<BaseService> baseService;
-            EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
-            em.getTransaction().begin();
-            Query query = em.createQuery("from BaseService b where b.name=:name");
-            query.setParameter("name", name);
-            baseService = (Optional<BaseService>) query.getSingleResult();
-            em.getTransaction().commit();
-            em.close();
-            return baseService;
+        EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
+        em.getTransaction().begin();
+        Query query = em.createQuery("from BaseService b where b.name=:name");
+        query.setParameter("name", name);
+        baseService = (Optional<BaseService>) query.getSingleResult();
+        em.getTransaction().commit();
+        em.close();
+        return baseService;
     }
 
 }

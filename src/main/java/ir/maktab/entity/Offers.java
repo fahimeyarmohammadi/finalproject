@@ -30,7 +30,7 @@ public class Offers {
     Date startWork;
 
     @OneToOne
-    Order order;
+    CustomerOrder order;
 
     @OneToOne
     Expert expert;

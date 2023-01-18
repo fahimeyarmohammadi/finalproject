@@ -15,10 +15,10 @@ import java.util.Date;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NamedQueries(
-        @NamedQuery(name = "getAllOrders", query = "FROM Order")
+        @NamedQuery(name = "getAllOrders", query = "FROM CustomerOrder")
 )
 
-public class Order {
+public class CustomerOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

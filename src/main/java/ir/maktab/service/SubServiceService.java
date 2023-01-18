@@ -26,11 +26,17 @@ public class SubServiceService {
 
     public void addSubService(SubService subService) throws OBJECTISEXIST {
 
-        if (!baseServiceService.getBaseServiceByName(subService.getName()).isPresent())
+        if (!baseServiceService.getBaseServiceByName(subService.getBaseService().getName()).isPresent())
+
             throw new NotFoundException("this baseService is not exist");
-        else if (subServiceRepository.getSubServiceByName(subService.getSubName()).isPresent())
-            throw new OBJECTISEXIST("this subService is exist");
+
         else
+        {
+            for (SubService s:subServiceRepository.getAllSubServiceInBaseService(subService.getBaseService().getName())) {
+                if (s.getSubName().equals(subService.getSubName()))
+                    throw new OBJECTISEXIST("this subService is exist");
+            }
+        }
             subServiceRepository.save(subService);
     }
 
@@ -39,6 +45,7 @@ public class SubServiceService {
     }
 
     public List<SubService> getAllSubServiceInBaseService(String baseServiceName) {
+
         if (baseServiceService.getBaseServiceByName(baseServiceName).isPresent())
             return subServiceRepository.getAllSubServiceInBaseService(baseServiceName);
         else

@@ -1,12 +1,11 @@
 package ir.maktab.repository;
 
-import ir.maktab.entity.Expert;
-import ir.maktab.entity.Order;
+import ir.maktab.entity.CustomerOrder;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-public class OrderRepository implements IRepository<Order>{
+public class OrderRepository implements IRepository<CustomerOrder>{
 
     private static final OrderRepository orderRepository = new OrderRepository();
 
@@ -17,7 +16,7 @@ public class OrderRepository implements IRepository<Order>{
         return orderRepository;
     }
     @Override
-    public void save(Order order) {
+    public void save(CustomerOrder order) {
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
         em.persist(order);
@@ -26,7 +25,7 @@ public class OrderRepository implements IRepository<Order>{
     }
 
     @Override
-    public void update(Order order) {
+    public void update(CustomerOrder order) {
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
         em.merge(order);
@@ -36,10 +35,10 @@ public class OrderRepository implements IRepository<Order>{
     }
 
     @Override
-    public void delete(Order order) {
+    public void delete(CustomerOrder order) {
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
-        Order deleteOrder = em.find(Order.class, order.getId());
+        CustomerOrder deleteOrder = em.find(CustomerOrder.class, order.getId());
         em.remove(deleteOrder);
         em.getTransaction().commit();
         em.close();
@@ -47,10 +46,10 @@ public class OrderRepository implements IRepository<Order>{
     }
 
     @Override
-    public List<Order> getAll() {
+    public List<CustomerOrder> getAll() {
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
-        List<Order> orderList = em.createNamedQuery("getAllOrders").getResultList();
+        List<CustomerOrder> orderList = em.createNamedQuery("getAllOrders").getResultList();
         em.getTransaction().commit();
         em.close();
         return orderList;

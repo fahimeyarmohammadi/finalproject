@@ -22,5 +22,5 @@ import java.util.List;
 )
 public class Customer extends Person{
     @OneToMany
-    List<Order> orderList=new ArrayList<>();
+    List<CustomerOrder> orderList=new ArrayList<>();
 }

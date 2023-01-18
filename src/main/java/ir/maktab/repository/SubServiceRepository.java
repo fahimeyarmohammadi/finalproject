@@ -1,8 +1,6 @@
 package ir.maktab.repository;
 
-import ir.maktab.entity.BaseService;
 import ir.maktab.entity.SubService;
-import ir.maktab.repository.IRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -10,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class SubServiceRepository implements IRepository<SubService> {
+
     private static final SubServiceRepository subServiceRepository = new SubServiceRepository();
 
     private SubServiceRepository() {
@@ -26,7 +25,6 @@ public class SubServiceRepository implements IRepository<SubService> {
         em.persist(subService);
         em.getTransaction().commit();
         em.close();
-
     }
 
     @Override
@@ -42,11 +40,10 @@ public class SubServiceRepository implements IRepository<SubService> {
     public void delete(SubService subService) {
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
-       SubService deleteSubService= em.find(SubService.class, subService.getId());
+        SubService deleteSubService = em.find(SubService.class, subService.getId());
         em.remove(deleteSubService);
         em.getTransaction().commit();
         em.close();
-
     }
 
     @Override
@@ -59,10 +56,10 @@ public class SubServiceRepository implements IRepository<SubService> {
         return subServiceList;
     }
 
-    public List<SubService> getAllSubServiceInBaseService(String baseServiceName){
+    public List<SubService> getAllSubServiceInBaseService(String name) {
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
-        List<SubService> subServiceList = (List<SubService>) em.createNamedQuery("getAllSubServicesByBaseServiceName").setParameter("name",baseServiceName).getResultList();
+        List<SubService> subServiceList = (List<SubService>) em.createNamedQuery("getAllSubServicesByBaseServiceName").setParameter("name", name).getResultList();
         em.getTransaction().commit();
         em.close();
         return subServiceList;

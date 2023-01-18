@@ -10,8 +10,20 @@ import java.util.List;
 
 public class ManagerService {
 
+    private static final ManagerService managerService = new ManagerService();
+
+    private ManagerService() {
+    }
+
+
+    public static ManagerService getInstance() {
+        return managerService;
+    }
+
     private final BaseServiceService baseServiceService = BaseServiceService.getInstance();
+
     private final SubServiceService subServiceService = SubServiceService.getInstance();
+
     private final ExpertService expertService=ExpertService.getInstance();
 
     public void addBaseService(BaseService baseService) throws OBJECTISEXIST {

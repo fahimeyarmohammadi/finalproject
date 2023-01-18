@@ -19,7 +19,8 @@ public class CustomerService {
     private final OrderService orderService = OrderService.getInstance();
 
     public void addCustomer(Customer customer) {
-        customerRepository.save(customer);
+         customer.setCredit((double) 0);
+         customerRepository.save(customer);
     }
 
     public void changPassword(String email,String newPassword) {
@@ -52,7 +53,7 @@ public class CustomerService {
         else throw new NotFoundException("customer is null");
     }
 
-    public void customerGetOrder(Order order) throws NOVALIDATE {
+    public void customerGetOrder(CustomerOrder order) throws NOVALIDATE {
 
          orderService.addOrder(order);
 
