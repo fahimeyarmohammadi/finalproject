@@ -18,7 +18,7 @@ import javax.persistence.NamedQuery;
 @ToString
 
 @NamedQueries(
-        @NamedQuery(name = "getAllSubServices",query = "FROM SubService")
+        {@NamedQuery(name = "getAllSubServices", query = "FROM SubService"), @NamedQuery(name = "getAllSubServicesByBaseServiceName", query = "FROM SubService s where s.name=:name")}
 )
 
 public class SubService extends BaseService{

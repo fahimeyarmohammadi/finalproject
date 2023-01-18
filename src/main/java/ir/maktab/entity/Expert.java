@@ -31,6 +31,8 @@ public class Expert extends Person{
 
     int score;
 
-    //image
+    @Lob
+    @Column(name = "IMAGE")
+    byte[] expertImage;
 
 }

@@ -1,12 +1,14 @@
 package ir.maktab.service;
 
-import ir.maktab.entity.BaseService;
 import ir.maktab.entity.SubService;
-import ir.maktab.repository.BaseServiceRepository;
+import ir.maktab.exception.NotFoundException;
+import ir.maktab.exception.OBJECTISEXIST;
 import ir.maktab.repository.SubServiceRepository;
 
-public class SubServiceService {
+import java.util.List;
 
+public class SubServiceService {
+    private final BaseServiceService baseServiceService = BaseServiceService.getInstance();
     private static final SubServiceService subServiceService = new SubServiceService();
 
     private SubServiceService() {
@@ -18,16 +20,29 @@ public class SubServiceService {
 
     private final SubServiceRepository subServiceRepository = SubServiceRepository.getInstance();
 
-    public void addSubService(SubService subService) {
+    public void addSubService(SubService subService) throws OBJECTISEXIST {
 
-        subServiceRepository.save(subService);
+        if (!baseServiceService.getBaseServiceByName(subService.getName()).isPresent())
+            throw new NotFoundException("this baseService is not exist");
+        else if (subServiceRepository.getSubServiceByName(subService.getSubName()).isPresent())
+            throw new OBJECTISEXIST("this subService is exist");
+        else
+            subServiceRepository.save(subService);
     }
 
-    public void getAllSubService(){
-        subServiceRepository.getAll();
+    public List<SubService> getAllSubService() {
+        return subServiceRepository.getAll();
     }
 
-    public void update(SubService subService){
+    public List<SubService> getAllSubServiceInBaseService(String baseServiceName) {
+        if (baseServiceService.getBaseServiceByName(baseServiceName).isPresent())
+            return subServiceRepository.getAllSubServiceInBaseService(baseServiceName);
+        else
+            throw new NotFoundException("this baseService is not exist");
+    }
+
+
+    public void update(SubService subService) {
         subServiceRepository.update(subService);
     }
 }
