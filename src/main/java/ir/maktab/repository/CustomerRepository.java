@@ -19,7 +19,9 @@ public class CustomerRepository implements IRepository<Customer> {
         return customerRepository;
     }
 
+
     public void save(Customer customer) {
+
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
         em.persist(customer);
@@ -28,6 +30,7 @@ public class CustomerRepository implements IRepository<Customer> {
     }
 
     public void update(Customer customer) {
+
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
         em.merge(customer);
@@ -36,6 +39,7 @@ public class CustomerRepository implements IRepository<Customer> {
     }
 
     public void delete(Customer customer) {
+
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
         Customer deleteCustomer = em.find(Customer.class, customer.getId());
@@ -45,6 +49,7 @@ public class CustomerRepository implements IRepository<Customer> {
     }
 
     public List<Customer> getAll() {
+
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
         List<Customer> customerList = em.createNamedQuery("getAllCustomers").getResultList();
@@ -53,38 +58,22 @@ public class CustomerRepository implements IRepository<Customer> {
         return customerList;
     }
 
-    public Optional<Customer> getByUserNameAndPassword(String username, String password) {
+    public Optional<Customer> getByUserName(String username) {
+
         Customer customer;
         try {
             EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
             em.getTransaction().begin();
-            Query query = em.createQuery("from Customer c where c.username =:username and c.password =:password");
+            Query query = em.createQuery("from Customer c where c.username =:username");
             query.setParameter("username", username);
-            query.setParameter("password", password);
             customer = (Customer) query.getSingleResult();
+            customer.getOrderList().size();
             em.getTransaction().commit();
             em.close();
         } catch (NoResultException e) {
             customer = null;
         }
         return Optional.ofNullable(customer);
-    }
-
-    public Optional<Customer> getCustomerByEmail(String email) {
-        Customer customer;
-        try {
-            EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
-            em.getTransaction().begin();
-            Query query = em.createQuery("from Customer c where c.email=:email");
-            query.setParameter("email", email);
-            customer = (Customer) query.getSingleResult();
-            em.getTransaction().commit();
-            em.close();
-        } catch (NoResultException e) {
-            customer = null;
-        }
-        return Optional.ofNullable(customer);
-
     }
 }
 

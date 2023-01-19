@@ -1,11 +1,11 @@
 package ir.maktab.service;
 
-import ir.maktab.entity.*;
+import ir.maktab.entity.Customer;
+import ir.maktab.entity.CustomerOrder;
 import ir.maktab.exception.NOVALIDATE;
-import ir.maktab.exception.NotFoundException;
+import ir.maktab.exception.NOTFOUNDEXEPTION;
 import ir.maktab.repository.CustomerRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 public class CustomerService {
@@ -19,53 +19,37 @@ public class CustomerService {
         return customerService;
     }
 
-    private final BaseServiceService baseServiceService = BaseServiceService.getInstance();
-
-    private final SubServiceService subServiceService = SubServiceService.getInstance();
 
     private final CustomerRepository customerRepository = CustomerRepository.getInstance();
 
     private final OrderService orderService = OrderService.getInstance();
 
     public void addCustomer(Customer customer) {
-         customer.setCredit((double) 0);
-         customerRepository.save(customer);
+
+        customer.setCredit((double) 0);
+        customer.setUsername(customer.getEmail());
+        customerRepository.save(customer);
     }
 
-    public void changPassword(String email,String newPassword) {
+    public void changPassword(String username, String newPassword) {
 
-        Customer customer=getCustomerByEmail(email);
+        Optional<Customer> signInCustomer = customerRepository.getByUserName(username);
+        Customer customer = signInCustomer.orElseThrow(() -> new NOTFOUNDEXEPTION("Invalid Username"));
         customer.setPassword(newPassword);
         customerRepository.update(customer);
     }
 
-    public List<BaseService> getAllBaseService(){
-        return baseServiceService.getAllBaseService();
-    }
-
-    public List<SubService> getAllSubService(){
-        return subServiceService.getAllSubService();
-    }
-
-    public List<SubService>getAllSubServiceInBaseService(String baseServiceName){return subServiceService.getAllSubServiceInBaseService(baseServiceName);}
-
     public Customer signIn(String username, String password) {
 
-        Optional<Customer> optionalCustomer = customerRepository.getByUserNameAndPassword(username,password);
-        if (optionalCustomer.isPresent()) return optionalCustomer.get();
-        else throw new NotFoundException("customer is null");
-    }
-    public Customer getCustomerByEmail(String email){
-
-        Optional<Customer> optionalCustomer = customerRepository.getCustomerByEmail(email);
-        if (optionalCustomer.isPresent()) return optionalCustomer.get();
-        else throw new NotFoundException("customer is null");
+        Optional<Customer> signInCustomer = customerRepository.getByUserName(username);
+        Customer customer = signInCustomer.orElseThrow(() -> new NOTFOUNDEXEPTION("Invalid Username"));
+        if (!customer.getPassword().equals(password))
+            throw new NOTFOUNDEXEPTION("the password is not correct");
+        return customer;
     }
 
     public void customerGetOrder(CustomerOrder order) throws NOVALIDATE {
 
-         orderService.addOrder(order);
-
+        orderService.addOrder(order);
     }
-
 }

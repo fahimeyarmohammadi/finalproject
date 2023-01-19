@@ -47,15 +47,26 @@ public class ManagerService {
         subServiceService.addSubService(subService);
     }
 
-    public void acceptExpert(String expertEmail){
-        Expert expert=expertService.getExpertByEmail(expertEmail);
+    public void acceptExpert(String username){
+
+        Expert expert=expertService.getByUsername(username);
         expert.setExpertcondition(EXPERTCONDITION.valueOf("ACCEPTED"));
         expertService.update(expert);
     }
 
-    public void addExpertToSubService(String expertEmail,String subServiceName){
-        Expert expert=expertService.getExpertByEmail(expertEmail);
+    public void addExpertToSubService(String username,String subServiceName){
+
+        Expert expert=expertService.getByUsername(username);
         SubService subService=subServiceService.getSubServiceByName(subServiceName);
         expert.getSubServiceList().add(subService);
+        expertService.update(expert);
+    }
+
+    public void deleteExpertFromSubService(String username,String subServiceName){
+        
+        Expert expert=expertService.getByUsername(username);
+        SubService subService=subServiceService.getSubServiceByName(subServiceName);
+        expert.getSubServiceList().remove(subService);
+        expertService.update(expert);
     }
 }

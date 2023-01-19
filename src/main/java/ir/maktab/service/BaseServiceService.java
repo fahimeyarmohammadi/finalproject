@@ -1,7 +1,6 @@
 package ir.maktab.service;
 
 import ir.maktab.entity.BaseService;
-import ir.maktab.exception.NotFoundException;
 import ir.maktab.exception.OBJECTISEXIST;
 import ir.maktab.repository.BaseServiceRepository;
 

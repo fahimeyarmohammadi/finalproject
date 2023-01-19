@@ -7,16 +7,18 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 @Getter
 @Setter
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
-@MappedSuperclass
+@ToString
+@FieldDefaults(level = AccessLevel.PROTECTED)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
     Double credit;
@@ -33,7 +35,7 @@ public class Person {
     @Column(nullable = false)
     String password;
 
-    String username=password;
+    String username;
 
     @CreationTimestamp
     @Temporal(value = TemporalType.TIMESTAMP)

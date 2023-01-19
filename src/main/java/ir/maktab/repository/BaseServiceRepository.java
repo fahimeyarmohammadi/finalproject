@@ -21,6 +21,7 @@ public class BaseServiceRepository implements IRepository<BaseService> {
 
     @Override
     public void save(BaseService baseService) {
+
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
         em.persist(baseService);
@@ -30,6 +31,7 @@ public class BaseServiceRepository implements IRepository<BaseService> {
 
     @Override
     public void update(BaseService baseService) {
+
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
         em.merge(baseService);
@@ -39,6 +41,7 @@ public class BaseServiceRepository implements IRepository<BaseService> {
 
     @Override
     public void delete(BaseService baseService) {
+
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
         BaseService deleteBaseService = em.find(BaseService.class, baseService.getId());
@@ -49,6 +52,7 @@ public class BaseServiceRepository implements IRepository<BaseService> {
 
     @Override
     public List<BaseService> getAll() {
+
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
         List<BaseService> baseServiceList = em.createNamedQuery("getAllBaseServices").getResultList();
@@ -58,6 +62,7 @@ public class BaseServiceRepository implements IRepository<BaseService> {
     }
 
     public Optional<BaseService> getBaseServiceByName(String name) {
+
         BaseService baseService;
         try {
             EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();

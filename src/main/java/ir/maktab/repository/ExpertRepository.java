@@ -27,11 +27,11 @@ public class ExpertRepository implements IRepository<Expert> {
         em.persist(expert);
         em.getTransaction().commit();
         em.close();
-
     }
 
     @Override
     public void update(Expert expert) {
+
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
         em.merge(expert);
@@ -48,11 +48,11 @@ public class ExpertRepository implements IRepository<Expert> {
         em.remove(deleteExpert);
         em.getTransaction().commit();
         em.close();
-
     }
 
     @Override
     public List<Expert> getAll() {
+
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
         List<Expert> expertList = em.createNamedQuery("getAllExperts").getResultList();
@@ -61,16 +61,17 @@ public class ExpertRepository implements IRepository<Expert> {
         return expertList;
     }
 
-    public Optional<Expert> getByUserNameAndPassword(String username, String password) {
+    public Optional<Expert> getByUserName(String username) {
+
         Expert expert;
         try {
             EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
             em.getTransaction().begin();
-            Query query = em.createQuery("from Expert e where e.username =:username and e.password =:password");
+            Query query = em.createQuery("from Expert e where e.username =:username");
             query.setParameter("username", username);
-            query.setParameter("password", password);
             expert = (Expert) query.getSingleResult();
             em.getTransaction().commit();
+            expert.getSubServiceList().size();
             em.close();
         } catch (NoResultException e) {
             expert = null;
@@ -79,6 +80,7 @@ public class ExpertRepository implements IRepository<Expert> {
     }
 
     public List<Expert> getExpertNotAccepted() {
+
         List<Expert> expertList;
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
@@ -89,19 +91,4 @@ public class ExpertRepository implements IRepository<Expert> {
         return expertList;
     }
 
-    public Optional<Expert> getExpertByEmail(String email) {
-        Expert expert;
-        try {
-            EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
-            em.getTransaction().begin();
-            Query query = em.createQuery("from Expert e where e.email=:email");
-            query.setParameter("email", email);
-            expert = (Expert) query.getSingleResult();
-            em.getTransaction().commit();
-            em.close();
-        } catch (NoResultException e) {
-            expert = null;
-        }
-        return Optional.ofNullable(expert);
-    }
 }

@@ -24,12 +24,12 @@ public class OrderService {
 
     public void addOrder(CustomerOrder order) throws NOVALIDATE {
 
-        if ( order.getProposedPrice() < order.getSubService().getBasePrice()) {
+        if (order.getProposedPrice() < order.getSubService().getBasePrice()) {
             throw new NOVALIDATE("the proposedPrice must greater than subServer basePrice");
         } else if (DateUtil.dateToLocalDateTime(order.getPreferDate()).isBefore(LocalDateTime.now())) {
             throw new NOVALIDATE("prefer Date must be after now");
         } else
             order.setOrdercondition(ORDERCONDITION.valueOf("WAITINGFORTHESUGGESTINOFEXPERT"));
-            orderRepository.save(order);
+        orderRepository.save(order);
     }
 }

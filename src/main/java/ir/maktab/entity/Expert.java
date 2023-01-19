@@ -8,31 +8,31 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
+@Data
+@EqualsAndHashCode(callSuper = false)
 @NamedQueries(
-        @NamedQuery(name = "getAllExperts",query = "FROM Expert"))
+        @NamedQuery(name = "getAllExperts", query = "FROM Expert"))
 
-public class Expert extends Person{
+public class Expert extends Person {
 
     @Enumerated(value = EnumType.STRING)
-     EXPERTCONDITION expertcondition;
+    EXPERTCONDITION expertcondition;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    List<SubService> subServiceList=new ArrayList<>();
+    @ManyToMany
+
+    List<SubService> subServiceList = new ArrayList<>();
 
     @OneToMany
-    List<Review>reviewList=new ArrayList<>();
+    List<Review> reviewList = new ArrayList<>();
 
     int score;
 
     @Lob
-    @Column(name = "IMAGE")
     byte[] expertImage;
 
 }
