@@ -3,6 +3,7 @@ package ir.maktab.repository;
 import ir.maktab.entity.BaseService;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +35,6 @@ public class BaseServiceRepository implements IRepository<BaseService> {
         em.merge(baseService);
         em.getTransaction().commit();
         em.close();
-
     }
 
     @Override
@@ -58,15 +58,19 @@ public class BaseServiceRepository implements IRepository<BaseService> {
     }
 
     public Optional<BaseService> getBaseServiceByName(String name) {
-        Optional<BaseService> baseService;
-        EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
-        em.getTransaction().begin();
-        Query query = em.createQuery("from BaseService b where b.name=:name");
-        query.setParameter("name", name);
-        baseService = (Optional<BaseService>) query.getSingleResult();
-        em.getTransaction().commit();
-        em.close();
-        return baseService;
+        BaseService baseService;
+        try {
+            EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
+            em.getTransaction().begin();
+            Query query = em.createQuery("from BaseService b where b.name=:name");
+            query.setParameter("name", name);
+            baseService = (BaseService) query.getSingleResult();
+            em.getTransaction().commit();
+            em.close();
+        }catch (NoResultException e) {
+            baseService = null;
+        }
+        return Optional.ofNullable(baseService);
     }
 
 }

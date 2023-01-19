@@ -3,6 +3,7 @@ package ir.maktab.repository;
 import ir.maktab.entity.SubService;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
 import java.util.Optional;
@@ -66,15 +67,19 @@ public class SubServiceRepository implements IRepository<SubService> {
     }
 
     public Optional<SubService> getSubServiceByName(String subName) {
-        Optional<SubService> subService;
-        EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
-        em.getTransaction().begin();
-        Query query = em.createQuery("from SubService s where s.subName=:subName");
-        query.setParameter("subName", subName);
-        subService = (Optional<SubService>) query.getSingleResult();
-        em.getTransaction().commit();
-        em.close();
-        return subService;
+        SubService subService;
+        try {
+            EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
+            em.getTransaction().begin();
+            Query query = em.createQuery("from SubService s where s.subName=:subName");
+            query.setParameter("subName", subName);
+            subService = (SubService) query.getSingleResult();
+            em.getTransaction().commit();
+            em.close();
+        }catch (NoResultException e) {
+            subService = null;
+        }
+        return Optional.ofNullable(subService);
     }
 
 }

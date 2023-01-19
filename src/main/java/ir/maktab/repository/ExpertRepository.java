@@ -1,9 +1,9 @@
 package ir.maktab.repository;
 
-import ir.maktab.entity.Customer;
 import ir.maktab.entity.Expert;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +37,6 @@ public class ExpertRepository implements IRepository<Expert> {
         em.merge(expert);
         em.getTransaction().commit();
         em.close();
-
     }
 
     @Override
@@ -63,38 +62,46 @@ public class ExpertRepository implements IRepository<Expert> {
     }
 
     public Optional<Expert> getByUserNameAndPassword(String username, String password) {
-        Optional<Expert> expert;
-        EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
-        em.getTransaction().begin();
-        Query query = em.createQuery("from Expert e where e.username =:username and e.password =:password");
-        query.setParameter("username", username);
-        query.setParameter("password", password);
-        expert = (Optional<Expert>) query.getSingleResult();
-        em.getTransaction().commit();
-        em.close();
-        return expert;
+        Expert expert;
+        try {
+            EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
+            em.getTransaction().begin();
+            Query query = em.createQuery("from Expert e where e.username =:username and e.password =:password");
+            query.setParameter("username", username);
+            query.setParameter("password", password);
+            expert = (Expert) query.getSingleResult();
+            em.getTransaction().commit();
+            em.close();
+        } catch (NoResultException e) {
+            expert = null;
+        }
+        return Optional.ofNullable(expert);
     }
 
-    public List<Expert> getExpertNotAccepted(){
-        List<Expert>expertList;
+    public List<Expert> getExpertNotAccepted() {
+        List<Expert> expertList;
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
         Query query = em.createQuery("from Expert e where e.expertcondition=:NEW or e.expertcondition=:AWAITINGCONFIRMATION");
-        expertList=query.getResultList();
+        expertList = query.getResultList();
         em.getTransaction().commit();
         em.close();
         return expertList;
     }
 
-    public Optional<Expert> getExpertByEmail(String email){
-        Optional<Expert> expert;
-        EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
-        em.getTransaction().begin();
-        Query query = em.createQuery("from Expert e where e.email=:email");
-        query.setParameter("email",email);
-        expert = (Optional<Expert>) query.getSingleResult();
-        em.getTransaction().commit();
-        em.close();
-        return expert;
+    public Optional<Expert> getExpertByEmail(String email) {
+        Expert expert;
+        try {
+            EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
+            em.getTransaction().begin();
+            Query query = em.createQuery("from Expert e where e.email=:email");
+            query.setParameter("email", email);
+            expert = (Expert) query.getSingleResult();
+            em.getTransaction().commit();
+            em.close();
+        } catch (NoResultException e) {
+            expert = null;
+        }
+        return Optional.ofNullable(expert);
     }
 }

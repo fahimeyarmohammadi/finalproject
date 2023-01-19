@@ -10,6 +10,15 @@ import java.util.Optional;
 
 public class CustomerService {
 
+    private static final CustomerService customerService = new CustomerService();
+
+    private CustomerService() {
+    }
+
+    public static CustomerService getInstance() {
+        return customerService;
+    }
+
     private final BaseServiceService baseServiceService = BaseServiceService.getInstance();
 
     private final SubServiceService subServiceService = SubServiceService.getInstance();
