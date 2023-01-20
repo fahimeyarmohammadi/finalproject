@@ -5,8 +5,9 @@ import ir.maktab.entity.Customer;
 import ir.maktab.entity.CustomerOrder;
 import ir.maktab.entity.SubService;
 import ir.maktab.exception.NOVALIDATE;
-import ir.maktab.exception.NOTFOUNDEXEPTION;
+import ir.maktab.exception.NOTFOUNDEXCEPTION;
 import ir.maktab.repository.CustomerRepository;
+import ir.maktab.util.validation.Validation;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +32,12 @@ public class CustomerService {
 
     private final SubServiceService subServiceService=SubServiceService.getInstance();
 
-    public void addCustomer(Customer customer) {
+    public void addCustomer(Customer customer) throws NOVALIDATE {
+
+        Validation.validateName(customer.getName());
+        Validation.validateName(customer.getFamilyName());
+        Validation.validateEmail(customer.getEmail());
+        Validation.validatePassword(customer.getPassword());
 
         customer.setCredit((double) 0);
         customer.setUsername(customer.getEmail());
@@ -41,7 +47,7 @@ public class CustomerService {
     public void changPassword(String username, String newPassword) {
 
         Optional<Customer> signInCustomer = customerRepository.getByUserName(username);
-        Customer customer = signInCustomer.orElseThrow(() -> new NOTFOUNDEXEPTION("Invalid Username"));
+        Customer customer = signInCustomer.orElseThrow(() -> new NOTFOUNDEXCEPTION("Invalid Username"));
         customer.setPassword(newPassword);
         customerRepository.update(customer);
     }
@@ -49,9 +55,9 @@ public class CustomerService {
     public Customer signIn(String username, String password) {
 
         Optional<Customer> signInCustomer = customerRepository.getByUserName(username);
-        Customer customer = signInCustomer.orElseThrow(() -> new NOTFOUNDEXEPTION("Invalid Username"));
+        Customer customer = signInCustomer.orElseThrow(() -> new NOTFOUNDEXCEPTION("Invalid Username"));
         if (!customer.getPassword().equals(password))
-            throw new NOTFOUNDEXEPTION("the password is not correct");
+            throw new NOTFOUNDEXCEPTION("the password is not correct");
         return customer;
     }
 

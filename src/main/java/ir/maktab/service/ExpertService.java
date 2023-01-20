@@ -4,18 +4,12 @@ import ir.maktab.entity.BaseService;
 import ir.maktab.entity.Expert;
 import ir.maktab.entity.SubService;
 import ir.maktab.enums.EXPERTCONDITION;
-import ir.maktab.exception.NOTFOUNDEXEPTION;
+import ir.maktab.exception.NOTFOUNDEXCEPTION;
 import ir.maktab.exception.NOVALIDATE;
 import ir.maktab.repository.ExpertRepository;
+import ir.maktab.util.validation.Validation;
 
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,22 +31,26 @@ public class ExpertService {
 
     private final ExpertRepository expertRepository = ExpertRepository.getInstance();
 
-    public void addExpert(Expert expert) throws IOException, NOVALIDATE {
+    public void addExpert(Expert expert,String imagePath) throws IOException, NOVALIDATE {
+
+        Validation.validateName(expert.getName());
+        Validation.validateName(expert.getFamilyName());
+        Validation.validateEmail(expert.getEmail());
+        Validation.validatePassword(expert.getPassword());
 
         expert.setCredit((double) 0);
         expert.setScore(0);
         expert.setExpertcondition(EXPERTCONDITION.valueOf("NEW"));
         expert.setUsername(expert.getEmail());
-        expert.setExpertImage(readImage());
+        expert.setExpertImage(Validation.validateImage(imagePath));
         expertRepository.save(expert);
     }
 
-    public void changPassword(String username, String newPassword) throws NOVALIDATE, IOException {
+    public void changPassword(String username, String newPassword) {
 
         Optional<Expert> optionalExpert = expertRepository.getByUserName(username);
-        Expert expert = optionalExpert.orElseThrow(() -> new NOTFOUNDEXEPTION("Invalid Username"));
+        Expert expert = optionalExpert.orElseThrow(() -> new NOTFOUNDEXCEPTION("Invalid Username"));
         expert.setPassword(newPassword);
-        expert.setExpertImage(readImage());
         expertRepository.update(expert);
     }
 
@@ -60,16 +58,16 @@ public class ExpertService {
     public Expert signIn(String username, String password) {
 
         Optional<Expert> optionalExpert = expertRepository.getByUserName(username);
-        Expert expert = optionalExpert.orElseThrow(() -> new NOTFOUNDEXEPTION("Invalid Username"));
+        Expert expert = optionalExpert.orElseThrow(() -> new NOTFOUNDEXCEPTION("Invalid Username"));
         if (!expert.getPassword().equals(password))
-            throw new NOTFOUNDEXEPTION("the password is not correct");
+            throw new NOTFOUNDEXCEPTION("the password is not correct");
         return expert;
     }
 
     public Expert getByUsername(String username) {
 
         Optional<Expert> optionalExpert = expertRepository.getByUserName(username);
-        return optionalExpert.orElseThrow(() -> new NOTFOUNDEXEPTION("Invalid Username"));
+        return optionalExpert.orElseThrow(() -> new NOTFOUNDEXCEPTION("Invalid Username"));
 
     }
 
@@ -86,34 +84,5 @@ public class ExpertService {
         expertRepository.update(expert);
     }
 
-    public static byte[] readImage() throws IOException, NOVALIDATE {
 
-        //size validation
-        File file = new File("aaa.jpg");
-        double imageSize = file.length();
-        double imageSIzeInKb = (imageSize / 1024);
-        if (imageSIzeInKb > 300) {
-            throw new NOVALIDATE("image size must be less than 300 kb");
-        }
-
-        //validat format
-        ImageInputStream iis = ImageIO.createImageInputStream(file);
-        Iterator<ImageReader> imageReaders = ImageIO.getImageReaders(iis);
-        String format = "";
-
-        while (imageReaders.hasNext()) {
-            ImageReader reader = imageReaders.next();
-            format = reader.getFormatName();
-        }
-        if (format.equals("jpg")) {
-            throw new NOVALIDATE("the image format must be JPEG");
-        }
-
-        //reading file
-        BufferedImage bImage = ImageIO.read(file);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ImageIO.write(bImage, "jpg", bos);
-
-        return bos.toByteArray();
-    }
 }

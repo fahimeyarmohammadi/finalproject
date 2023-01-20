@@ -1,7 +1,7 @@
 package ir.maktab.service;
 
 import ir.maktab.entity.SubService;
-import ir.maktab.exception.NOTFOUNDEXEPTION;
+import ir.maktab.exception.NOTFOUNDEXCEPTION;
 import ir.maktab.exception.OBJECTISEXIST;
 import ir.maktab.repository.SubServiceRepository;
 
@@ -25,9 +25,9 @@ public class SubServiceService {
 
     public void addSubService(SubService subService) throws OBJECTISEXIST {
 
-        if (!baseServiceService.getBaseServiceByName(subService.getBaseService().getName()).isPresent())
+        if (baseServiceService.getBaseServiceByName(subService.getBaseService().getName()).isEmpty())
 
-            throw new NOTFOUNDEXEPTION("this baseService is not exist");
+            throw new NOTFOUNDEXCEPTION("this baseService is not exist");
 
         else
         {
@@ -48,20 +48,20 @@ public class SubServiceService {
         if (baseServiceService.getBaseServiceByName(baseServiceName).isPresent())
             return subServiceRepository.getAllSubServiceInBaseService(baseServiceName);
         else
-            throw new NOTFOUNDEXEPTION("this baseService is not exist");
+            throw new NOTFOUNDEXCEPTION("this baseService is not exist");
     }
 
     public SubService getSubServiceByName(String subName) {
 
         Optional<SubService> optionalSubService = subServiceRepository.getSubServiceByName(subName);
         if (optionalSubService.isPresent()) return optionalSubService.get();
-        else throw new NOTFOUNDEXEPTION("SubService not sound");
+        else throw new NOTFOUNDEXCEPTION("SubService not sound");
     }
 
 
     public void changeSubServiceBasePrice(String subName, Double newPrice) {
         SubService subService = subServiceService.getSubServiceByName(subName);
-        subService.setBasePrice(Double.valueOf(newPrice));
+        subService.setBasePrice(newPrice);
         subServiceRepository.update(subService);
     }
 

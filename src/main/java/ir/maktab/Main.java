@@ -20,23 +20,23 @@ public class Main {
         ExpertService expertService=ExpertService.getInstance();
 
         System.out.println("hello");
-//        Customer customer=new Customer();
-//        customer.setName("fahime");
-//        customer.setFamilyName("yari");
-//        customer.setPassword("12fahime");
-//        customer.setEmail("fahimeyarmohammadi@yahoo.com");
-//        customerService.addCustomer(customer);
+        Customer customer=new Customer();
+        customer.setName("fahime");
+        customer.setFamilyName("yari");
+        customer.setPassword("Fahime12");
+        customer.setEmail("fahimeyarmohammadi@yahoo.com");
+       customerService.addCustomer(customer);
 
 
-        BaseService baseService=new BaseService();
-        baseService.setName("HomeAppliances");
-        managerService.addBaseService(baseService);
-
-        SubService subService=new SubService();
-        subService.setBaseService(baseService);
-        subService.setBasePrice(20e3);
-        subService.setSubName("Kitchen appliances");
-        managerService.addSubService(subService);
+//        BaseService baseService=new BaseService();
+//        baseService.setName("HomeAppliances");
+//        managerService.addBaseService(baseService);
+//
+//        SubService subService=new SubService();
+//        subService.setBaseService(baseService);
+//        subService.setBasePrice(20e3);
+//        subService.setSubName("Kitchen appliances");
+//        managerService.addSubService(subService);
 
   //      System.out.println(managerService.getAllSubServiceInBaseService("HomeAppliances"));
 
@@ -56,21 +56,21 @@ public class Main {
 //
 //        customerService.customerGetOrder(order);
 
-        Expert expert=new Expert();
-        expert.setName("somaye");
-        expert.setFamilyName("karimi");
-        expert.setPassword("1234");
-        expert.setEmail("somaye@yahoo.com");
-        expertService.addExpert(expert);
+//        Expert expert=new Expert();
+//        expert.setName("somaye");
+//        expert.setFamilyName("karimi");
+//        expert.setPassword("1234somi");
+//        expert.setEmail("somaye@yahoo.com");
+//        expertService.addExpert(expert,"aaa.jpg");
 
-        managerService.acceptExpert("somaye@yahoo.com");
+    //    managerService.acceptExpert("somaye@yahoo.com");
 
 
 
-        managerService.addExpertToSubService("somaye@yahoo.com","Kitchen appliances");
-        Expert expert1=expertService.getByUsername("somaye@yahoo.com");
-
-        subServiceService.changeSubServiceDescription("Kitchen appliances","alaki");
+//        managerService.addExpertToSubService("somaye@yahoo.com","Kitchen appliances");
+//        Expert expert1=expertService.getByUsername("somaye@yahoo.com");
+//
+//        subServiceService.changeSubServiceDescription("Kitchen appliances","alaki");
 
 
 
