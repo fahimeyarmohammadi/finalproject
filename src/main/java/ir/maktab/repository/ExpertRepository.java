@@ -27,6 +27,7 @@ public class ExpertRepository implements IRepository<Expert> {
         em.persist(expert);
         em.getTransaction().commit();
         em.close();
+
     }
 
     @Override
@@ -37,6 +38,7 @@ public class ExpertRepository implements IRepository<Expert> {
         em.merge(expert);
         em.getTransaction().commit();
         em.close();
+
     }
 
     @Override
@@ -59,6 +61,7 @@ public class ExpertRepository implements IRepository<Expert> {
         em.getTransaction().commit();
         em.close();
         return expertList;
+
     }
 
     public Optional<Expert> getByUserName(String username) {
@@ -89,6 +92,7 @@ public class ExpertRepository implements IRepository<Expert> {
         em.getTransaction().commit();
         em.close();
         return expertList;
+
     }
 
 }

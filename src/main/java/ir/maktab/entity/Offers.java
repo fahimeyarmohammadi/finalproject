@@ -15,7 +15,9 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+
 public class Offers {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -32,12 +34,12 @@ public class Offers {
     Date startWork;
 
     @OneToOne
-    @Column(nullable = false)
     CustomerOrder order;
 
     @OneToOne
-    @Column(nullable = false)
     Expert expert;
 
+    @Column(nullable = false)
     Duration duration;
+
 }

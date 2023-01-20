@@ -12,7 +12,9 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+
 public class Review {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

@@ -16,10 +16,13 @@ import javax.persistence.*;
 @NamedQueries(
         @NamedQuery(name = "getAllBaseServices",query = "FROM BaseService")
 )
+
 public class BaseService {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     String name;
+
 }

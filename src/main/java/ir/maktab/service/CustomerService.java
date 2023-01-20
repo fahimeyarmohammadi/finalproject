@@ -26,7 +26,7 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository = CustomerRepository.getInstance();
 
-    private final OrderService orderService = OrderService.getInstance();
+    private final CustomerOrderService orderService = CustomerOrderService.getInstance();
 
     private final BaseServiceService baseServiceService=BaseServiceService.getInstance();
 
@@ -38,10 +38,10 @@ public class CustomerService {
         Validation.validateName(customer.getFamilyName());
         Validation.validateEmail(customer.getEmail());
         Validation.validatePassword(customer.getPassword());
-
         customer.setCredit((double) 0);
         customer.setUsername(customer.getEmail());
         customerRepository.save(customer);
+
     }
 
     public void changPassword(String username, String newPassword) {
@@ -50,6 +50,7 @@ public class CustomerService {
         Customer customer = signInCustomer.orElseThrow(() -> new NOTFOUNDEXCEPTION("Invalid Username"));
         customer.setPassword(newPassword);
         customerRepository.update(customer);
+
     }
 
     public Customer signIn(String username, String password) {
@@ -59,11 +60,13 @@ public class CustomerService {
         if (!customer.getPassword().equals(password))
             throw new NOTFOUNDEXCEPTION("the password is not correct");
         return customer;
+
     }
 
     public void customerGetOrder(CustomerOrder order) throws NOVALIDATE {
 
         orderService.addOrder(order);
+
     }
 
     public List<BaseService> getAllBaseService() {
@@ -71,6 +74,9 @@ public class CustomerService {
     }
 
     public List<SubService> getAllSubServiceInBaseService(String baseServiceName) {
+
         return subServiceService.getAllSubServiceInBaseService(baseServiceName);
+
     }
+
 }

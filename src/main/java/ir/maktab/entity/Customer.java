@@ -2,8 +2,10 @@ package ir.maktab.entity;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-//import org.apache.maven.surefire.shared.lang3.builder.ToStringExclude;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +20,10 @@ import java.util.List;
 @NamedQueries(
         @NamedQuery(name = "getAllCustomers", query = "FROM Customer")
 )
+
 public class Customer extends Person {
 
     @OneToMany
     List<CustomerOrder> orderList = new ArrayList<>();
+
 }

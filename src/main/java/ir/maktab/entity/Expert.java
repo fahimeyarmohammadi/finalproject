@@ -18,7 +18,8 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NamedQueries(
-        @NamedQuery(name = "getAllExperts", query = "FROM Expert"))
+        @NamedQuery(name = "getAllExperts", query = "FROM Expert")
+)
 
 public class Expert extends Person {
 

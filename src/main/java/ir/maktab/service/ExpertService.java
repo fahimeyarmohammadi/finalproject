@@ -37,13 +37,13 @@ public class ExpertService {
         Validation.validateName(expert.getFamilyName());
         Validation.validateEmail(expert.getEmail());
         Validation.validatePassword(expert.getPassword());
-
         expert.setCredit((double) 0);
         expert.setScore(0);
         expert.setExpertcondition(EXPERTCONDITION.valueOf("NEW"));
         expert.setUsername(expert.getEmail());
         expert.setExpertImage(Validation.validateImage(imagePath));
         expertRepository.save(expert);
+
     }
 
     public void changPassword(String username, String newPassword) {
@@ -52,6 +52,7 @@ public class ExpertService {
         Expert expert = optionalExpert.orElseThrow(() -> new NOTFOUNDEXCEPTION("Invalid Username"));
         expert.setPassword(newPassword);
         expertRepository.update(expert);
+
     }
 
 
@@ -62,6 +63,7 @@ public class ExpertService {
         if (!expert.getPassword().equals(password))
             throw new NOTFOUNDEXCEPTION("the password is not correct");
         return expert;
+
     }
 
     public Expert getByUsername(String username) {
@@ -78,11 +80,11 @@ public class ExpertService {
     public List<SubService> getAllSubServiceInBaseService(String baseServiceName) {
 
         return subServiceService.getAllSubServiceInBaseService(baseServiceName);
+
     }
 
     public void update(Expert expert) {
         expertRepository.update(expert);
     }
-
 
 }

@@ -46,6 +46,7 @@ public class CustomerRepository implements IRepository<Customer> {
         em.remove(deleteCustomer);
         em.getTransaction().commit();
         em.close();
+
     }
 
     public List<Customer> getAll() {
@@ -56,6 +57,7 @@ public class CustomerRepository implements IRepository<Customer> {
         em.getTransaction().commit();
         em.close();
         return customerList;
+
     }
 
     public Optional<Customer> getByUserName(String username) {
@@ -74,6 +76,6 @@ public class CustomerRepository implements IRepository<Customer> {
             customer = null;
         }
         return Optional.ofNullable(customer);
+
     }
 }
-

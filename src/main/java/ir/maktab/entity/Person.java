@@ -16,7 +16,9 @@ import java.util.Date;
 @ToString
 @FieldDefaults(level = AccessLevel.PROTECTED)
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+
 public class Person {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;

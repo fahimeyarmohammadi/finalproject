@@ -5,14 +5,14 @@ import ir.maktab.entity.CustomerOrder;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-public class OrderRepository implements IRepository<CustomerOrder>{
+public class CustomerOrderRepository implements IRepository<CustomerOrder>{
 
-    private static final OrderRepository orderRepository = new OrderRepository();
+    private static final CustomerOrderRepository orderRepository = new CustomerOrderRepository();
 
-    private OrderRepository() {
+    private CustomerOrderRepository() {
     }
 
-    public static OrderRepository getInstance() {
+    public static CustomerOrderRepository getInstance() {
         return orderRepository;
     }
     @Override

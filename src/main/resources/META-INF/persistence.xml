@@ -11,6 +11,7 @@
         <class>ir.maktab.entity.Manager</class>
         <class>ir.maktab.entity.Offers</class>
         <class>ir.maktab.entity.Review</class>
+        <class>ir.maktab.entity.Address</class>
 
 
         <properties>

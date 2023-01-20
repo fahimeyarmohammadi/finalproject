@@ -20,6 +20,7 @@ import javax.persistence.*;
 )
 
 public class SubService{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -27,6 +28,7 @@ public class SubService{
     String subName;
     Double basePrice;
     String description;
+
     @ManyToOne
     BaseService baseService;
 

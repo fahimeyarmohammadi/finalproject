@@ -26,9 +26,7 @@ public class SubServiceService {
     public void addSubService(SubService subService) throws OBJECTISEXIST {
 
         if (baseServiceService.getBaseServiceByName(subService.getBaseService().getName()).isEmpty())
-
             throw new NOTFOUNDEXCEPTION("this baseService is not exist");
-
         else
         {
             for (SubService s:subServiceRepository.getAllSubServiceInBaseService(subService.getBaseService().getName())) {
@@ -37,6 +35,7 @@ public class SubServiceService {
             }
         }
             subServiceRepository.save(subService);
+
     }
 
     public List<SubService> getAllSubService() {
@@ -49,6 +48,7 @@ public class SubServiceService {
             return subServiceRepository.getAllSubServiceInBaseService(baseServiceName);
         else
             throw new NOTFOUNDEXCEPTION("this baseService is not exist");
+
     }
 
     public SubService getSubServiceByName(String subName) {
@@ -56,18 +56,24 @@ public class SubServiceService {
         Optional<SubService> optionalSubService = subServiceRepository.getSubServiceByName(subName);
         if (optionalSubService.isPresent()) return optionalSubService.get();
         else throw new NOTFOUNDEXCEPTION("SubService not sound");
+
     }
 
 
     public void changeSubServiceBasePrice(String subName, Double newPrice) {
+
         SubService subService = subServiceService.getSubServiceByName(subName);
         subService.setBasePrice(newPrice);
         subServiceRepository.update(subService);
+
     }
 
     public void changeSubServiceDescription(String subName, String newDescription) {
+
         SubService subService = subServiceService.getSubServiceByName(subName);
         subService.setDescription(newDescription);
         subServiceRepository.update(subService);
+
     }
+
 }

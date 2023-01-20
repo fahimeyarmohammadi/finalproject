@@ -1,16 +1,27 @@
 package ir.maktab.entity;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
-@Setter
+@Entity
 @Getter
-@Embeddable
+@Setter
+@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@NamedQueries(
+        @NamedQuery(name = "getAllAddresses",query = "FROM Address ")
+)
 
 public class Address {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
 
     private String city;
     private String street;

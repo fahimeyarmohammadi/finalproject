@@ -3,24 +3,24 @@ package ir.maktab.service;
 import ir.maktab.entity.CustomerOrder;
 import ir.maktab.enums.ORDERCONDITION;
 import ir.maktab.exception.NOVALIDATE;
-import ir.maktab.repository.OrderRepository;
+import ir.maktab.repository.CustomerOrderRepository;
 import ir.maktab.util.DateUtil;
 
 import java.time.LocalDateTime;
 
-public class OrderService {
+public class CustomerOrderService {
 
-    private static final OrderService orderService = new OrderService();
+    private static final CustomerOrderService orderService = new CustomerOrderService();
 
-    private OrderService() {
+    private CustomerOrderService() {
     }
 
-    public static OrderService getInstance() {
+    public static CustomerOrderService getInstance() {
         return orderService;
     }
 
 
-    private final OrderRepository orderRepository = OrderRepository.getInstance();
+    private final CustomerOrderRepository orderRepository = CustomerOrderRepository.getInstance();
 
     public void addOrder(CustomerOrder order) throws NOVALIDATE {
 
@@ -28,8 +28,13 @@ public class OrderService {
             throw new NOVALIDATE("the proposedPrice must greater than subServer basePrice");
         } else if (DateUtil.dateToLocalDateTime(order.getPreferDate()).isBefore(LocalDateTime.now())) {
             throw new NOVALIDATE("prefer Date must be after now");
-        } else
-            order.setOrdercondition(ORDERCONDITION.valueOf("WAITINGFORTHESUGGESTINOFEXPERT"));
+        } else if (order.getAddress() == null)
+            throw new NOVALIDATE("you must have an address");
+
+        order.setOrdercondition(ORDERCONDITION.valueOf("WAITINGFORTHESUGGESTINOFEXPERT"));
+
         orderRepository.save(order);
+
     }
+
 }

@@ -19,6 +19,7 @@ import java.util.Date;
 )
 
 public class CustomerOrder {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -36,14 +37,12 @@ public class CustomerOrder {
     ORDERCONDITION ordercondition;
 
     @OneToOne
-    @Column(nullable = false)
     SubService subService;
 
     @Temporal(value = TemporalType.TIMESTAMP)
     Date doneDate;
 
-    @Embedded
-    @Column(nullable = false)
+    @OneToOne(cascade =CascadeType.MERGE)
     Address address;
 
 }

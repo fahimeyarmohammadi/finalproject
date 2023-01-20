@@ -21,52 +21,63 @@ public class SubServiceRepository implements IRepository<SubService> {
 
     @Override
     public void save(SubService subService) {
+
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
         em.persist(subService);
         em.getTransaction().commit();
         em.close();
+
     }
 
     @Override
     public void update(SubService subService) {
+
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
         em.merge(subService);
         em.getTransaction().commit();
         em.close();
+
     }
 
     @Override
     public void delete(SubService subService) {
+
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
         SubService deleteSubService = em.find(SubService.class, subService.getId());
         em.remove(deleteSubService);
         em.getTransaction().commit();
         em.close();
+
     }
 
     @Override
     public List<SubService> getAll() {
+
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
         List<SubService> subServiceList = (List<SubService>) em.createNamedQuery("getAllSubServices").getResultList();
         em.getTransaction().commit();
         em.close();
         return subServiceList;
+
     }
 
     public List<SubService> getAllSubServiceInBaseService(String name) {
+
         EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
         em.getTransaction().begin();
         List<SubService> subServiceList = (List<SubService>) em.createNamedQuery("getAllSubServicesByBaseServiceName").setParameter("name", name).getResultList();
         em.getTransaction().commit();
         em.close();
         return subServiceList;
+
     }
 
     public Optional<SubService> getSubServiceByName(String subName) {
+
         SubService subService;
         try {
             EntityManager em = EntityManagerFactoryProducer.emf.createEntityManager();
@@ -80,6 +91,6 @@ public class SubServiceRepository implements IRepository<SubService> {
             subService = null;
         }
         return Optional.ofNullable(subService);
-    }
 
+    }
 }
