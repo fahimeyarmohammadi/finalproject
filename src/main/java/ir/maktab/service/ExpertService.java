@@ -7,7 +7,6 @@ import ir.maktab.enums.EXPERTCONDITION;
 import ir.maktab.exception.NOTFOUNDEXEPTION;
 import ir.maktab.exception.NOVALIDATE;
 import ir.maktab.repository.ExpertRepository;
-import ir.maktab.repository.SubServiceRepository;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
@@ -31,7 +30,6 @@ public class ExpertService {
         return expertService;
     }
 
-    private final SubServiceRepository subServiceRepository = SubServiceRepository.getInstance();
 
     private final BaseServiceService baseServiceService = BaseServiceService.getInstance();
 
@@ -69,9 +67,10 @@ public class ExpertService {
     }
 
     public Expert getByUsername(String username) {
+
         Optional<Expert> optionalExpert = expertRepository.getByUserName(username);
-        Expert expert = optionalExpert.orElseThrow(() -> new NOTFOUNDEXEPTION("Invalid Username"));
-        return expert;
+        return optionalExpert.orElseThrow(() -> new NOTFOUNDEXEPTION("Invalid Username"));
+
     }
 
     public List<BaseService> getAllBaseService() {
@@ -79,6 +78,7 @@ public class ExpertService {
     }
 
     public List<SubService> getAllSubServiceInBaseService(String baseServiceName) {
+
         return subServiceService.getAllSubServiceInBaseService(baseServiceName);
     }
 
@@ -99,10 +99,10 @@ public class ExpertService {
         //validat format
         ImageInputStream iis = ImageIO.createImageInputStream(file);
         Iterator<ImageReader> imageReaders = ImageIO.getImageReaders(iis);
-        String format = new String();
+        String format = "";
 
         while (imageReaders.hasNext()) {
-            ImageReader reader = (ImageReader) imageReaders.next();
+            ImageReader reader = imageReaders.next();
             format = reader.getFormatName();
         }
         if (format.equals("jpg")) {
@@ -113,8 +113,7 @@ public class ExpertService {
         BufferedImage bImage = ImageIO.read(file);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ImageIO.write(bImage, "jpg", bos);
-        byte[] data = bos.toByteArray();
 
-        return data;
+        return bos.toByteArray();
     }
 }
