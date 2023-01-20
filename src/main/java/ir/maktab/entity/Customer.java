@@ -11,7 +11,9 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Setter
+@Getter
+@ToString
 @EqualsAndHashCode(callSuper = false)
 @NamedQueries(
         @NamedQuery(name = "getAllCustomers", query = "FROM Customer")

@@ -24,15 +24,19 @@ public class Offers {
     @Temporal(value = TemporalType.TIMESTAMP)
     Date offerDate;
 
+    @Column(nullable = false)
     Double offerPrice;
 
     @Temporal(value = TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     Date startWork;
 
     @OneToOne
+    @Column(nullable = false)
     CustomerOrder order;
 
     @OneToOne
+    @Column(nullable = false)
     Expert expert;
 
     Duration duration;

@@ -23,8 +23,10 @@ public class CustomerOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Column(nullable = false)
     Double proposedPrice;
 
+    @Column(nullable = false)
     String description;
 
     @Temporal(value = TemporalType.TIMESTAMP)
@@ -34,12 +36,14 @@ public class CustomerOrder {
     ORDERCONDITION ordercondition;
 
     @OneToOne
+    @Column(nullable = false)
     SubService subService;
 
     @Temporal(value = TemporalType.TIMESTAMP)
     Date doneDate;
 
     @Embedded
+    @Column(nullable = false)
     Address address;
 
 }

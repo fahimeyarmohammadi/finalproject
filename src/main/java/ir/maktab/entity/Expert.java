@@ -10,11 +10,13 @@ import java.util.List;
 
 
 @Entity
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Setter
+@Getter
+@ToString
 @EqualsAndHashCode(callSuper = false)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @NamedQueries(
         @NamedQuery(name = "getAllExperts", query = "FROM Expert"))
 
@@ -24,7 +26,6 @@ public class Expert extends Person {
     EXPERTCONDITION expertcondition;
 
     @ManyToMany
-
     List<SubService> subServiceList = new ArrayList<>();
 
     @OneToMany
