@@ -1,9 +1,11 @@
 package ir.maktab.service;
 
+import ir.maktab.entity.BaseService;
 import ir.maktab.entity.Expert;
+import ir.maktab.entity.SubService;
 import ir.maktab.enums.EXPERTCONDITION;
-import ir.maktab.exception.NOVALIDATE;
 import ir.maktab.exception.NOTFOUNDEXEPTION;
+import ir.maktab.exception.NOVALIDATE;
 import ir.maktab.repository.ExpertRepository;
 import ir.maktab.repository.SubServiceRepository;
 
@@ -15,6 +17,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 public class ExpertService {
@@ -31,6 +34,7 @@ public class ExpertService {
     private final SubServiceRepository subServiceRepository = SubServiceRepository.getInstance();
 
     private final BaseServiceService baseServiceService = BaseServiceService.getInstance();
+
     private final SubServiceService subServiceService = SubServiceService.getInstance();
 
     private final ExpertRepository expertRepository = ExpertRepository.getInstance();
@@ -68,6 +72,14 @@ public class ExpertService {
         Optional<Expert> optionalExpert = expertRepository.getByUserName(username);
         Expert expert = optionalExpert.orElseThrow(() -> new NOTFOUNDEXEPTION("Invalid Username"));
         return expert;
+    }
+
+    public List<BaseService> getAllBaseService() {
+        return baseServiceService.getAllBaseService();
+    }
+
+    public List<SubService> getAllSubServiceInBaseService(String baseServiceName) {
+        return subServiceService.getAllSubServiceInBaseService(baseServiceName);
     }
 
     public void update(Expert expert) {

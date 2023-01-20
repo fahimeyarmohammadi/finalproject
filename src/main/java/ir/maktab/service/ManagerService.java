@@ -63,7 +63,7 @@ public class ManagerService {
     }
 
     public void deleteExpertFromSubService(String username,String subServiceName){
-        
+
         Expert expert=expertService.getByUsername(username);
         SubService subService=subServiceService.getSubServiceByName(subServiceName);
         expert.getSubServiceList().remove(subService);
